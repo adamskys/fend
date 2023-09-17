@@ -1,5 +1,5 @@
 /* Global Variables */
-const apiKey = "2603a8964d604ca094f192030231609";
+const apiKey = "YOUR_API_KEY";
 const baseURL = "http://api.weatherapi.com/v1/current.json?key=";
 // Create a new date instance dynamically with JS
 let d = new Date();
