@@ -1,4 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
+projectData = [];
 
 // Require Express to run server and routes
 const express = require("express");
@@ -18,25 +19,20 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static("website"));
 
-let projectData = [];
-
 // Setup Server
-app.get("/", (req, res) => {
+app.get("/all", (req, res) => {
   res.send(projectData);
-  console.log(projectData);
 });
 
 const addWeatherEntry = (req, res) => {
-  console.log(req.body);
+  projectData = [];
   newEntry = {
     temp: req.body.temp,
     feelings: req.body.feelings,
     date: req.body.date,
   };
-
   projectData.push(newEntry);
   res.send(projectData);
-  console.log(projectData);
 };
 app.post("/", addWeatherEntry);
 

@@ -12,8 +12,7 @@ const performAction = (e) => {
       temp: data.current.feelslike_c,
       feelings: feelings,
       date: newDate,
-    });
-    console.log(temp);
+    }).then(updateUI());
   });
 };
 document.getElementById("generate").addEventListener("click", performAction);
@@ -22,7 +21,6 @@ const getWeather = async (baseURL, apiKey, zip) => {
   const res = await fetch(`${baseURL}${apiKey}&q=${zip}`);
   try {
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.log("error", err);
@@ -40,8 +38,24 @@ const postData = async (url, data = {}) => {
   });
   try {
     const newData = await res.json();
-    console.log(newData);
     return newData;
+  } catch (err) {
+    console.log("error", err);
+  }
+};
+
+const updateUI = async () => {
+  const req = await fetch("/all");
+  try {
+    const allData = await req.json();
+    console.log(allData);
+    document.getElementById("date").innerHTML = `Date: ${allData[0].date}`;
+    document.getElementById(
+      "temp"
+    ).innerHTML = `Temperature: ${allData[0].temp}C`;
+    document.getElementById(
+      "content"
+    ).innerHTML = `My feel: ${allData[0].feelings}`;
   } catch (err) {
     console.log("error", err);
   }
